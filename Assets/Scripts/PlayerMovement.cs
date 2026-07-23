@@ -661,7 +661,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (keyPressed && PlayerState == PlayerStates.Grounded) //holding/pressed jump
         {
-            print("jumping");
             PlayerState = PlayerStates.InAir;
             velocity.y += value * jumpForce;
             //StartCoroutine(SetCannotGoOnWallTimer(banWallAfterJumpTimeSec));
