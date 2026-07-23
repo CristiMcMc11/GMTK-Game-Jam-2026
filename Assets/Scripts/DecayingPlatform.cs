@@ -41,8 +41,12 @@ public class DecayingPlatform : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!decay) return;
-        StartTimer();
+        GameManager.OnTimersStart += StartTimer;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnTimersStart -= StartTimer;
     }
 
     public void StartTimer()
