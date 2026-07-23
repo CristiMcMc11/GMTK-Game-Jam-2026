@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DecayingPlatform : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class DecayingPlatform : MonoBehaviour
             state = PlatformState.Solid;
         }
 
-        transform.GetComponent<SpriteRenderer>().color = new Color(141, 141, 141);
+        transform.GetComponent<Tilemap>().color = new Color(141, 141, 141);
     }
 
     private void OnEnable()
@@ -80,12 +81,12 @@ public class DecayingPlatform : MonoBehaviour
 
     private void ShowWarning1()
     {
-        transform.GetComponent<SpriteRenderer>().color = Color.yellow;
+        transform.GetComponent<Tilemap>().color = Color.yellow;
     }
 
     private void ShowWarning2()
     {
-        transform.GetComponent<SpriteRenderer>().color = Color.red;
+        transform.GetComponent<Tilemap>().color = Color.red;
     }
 
     private void PlatformBreak()
