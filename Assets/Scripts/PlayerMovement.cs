@@ -109,15 +109,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Wall")]
     [SerializeField] private bool onRightWall;
     [SerializeField] private float wallVelocity = 0f;
-    [SerializeField] private bool canGoOnWall = true;
-    [SerializeField] private bool isWallClimbing = true;
+    [SerializeField] private bool canGoOnWall = true; 
+    [SerializeField] private float wallClimbVelocity = 5;
 
-    public float minSlideSpeed = 0.2f;
-    public float maxSlideSpeed = 1f;
-    public float slideSpeedTweenTime = 0.4f;
-    [SerializeField] private float climbHeight = 15;
-    [SerializeField] private float climbTime = 0.1f;
-    public Vector2 wallJumpVelocity = new Vector2(10, 10);
+    [SerializeField] float minSlideSpeed = 0.2f;
+    [SerializeField] float maxSlideSpeed = 1f;
+    [SerializeField] float slideSpeedTweenTime = 0.4f;
+    [SerializeField] Vector2 wallJumpVelocity = new Vector2(10, 10);
     [SerializeField] private float wallJumpInputBanTime = 0.2f;
 
     [SerializeField] private float oppositeInputTime = 0.3f;
@@ -131,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("testing/misc")]
     public float gameSpeed;
+    private bool doubleCallBugFlag = false;
     #endregion
 
     private void Awake()
@@ -556,6 +555,11 @@ public class PlayerMovement : MonoBehaviour
         return returnHitLeft ? hitLeft : hitRight;
     }
 
+    private bool CheckForWallTouch()
+    {
+        return CheckForWallTouch(true) || CheckForWallTouch(false);
+    }
+
     public void OnWallHit(RaycastHit2D hitLeft, RaycastHit2D hitRight)
     {
         RaycastHit2D correctHit;
@@ -648,6 +652,10 @@ public class PlayerMovement : MonoBehaviour
         float value = context.ReadValue<float>();
         bool keyPressed = value == 1;
 
+        if (!keyPressed) doubleCallBugFlag = false;
+        if (doubleCallBugFlag) return;
+        if (keyPressed) doubleCallBugFlag = true;
+
         bool coyoteTime = PlayerState == PlayerStates.InAir && Time.time - groundLeaveTime <= coyoteTimeLeniancySec && canUseCoyoteTime;
 
         if (keyPressed && (PlayerState == PlayerStates.Grounded || coyoteTime)) //holding/pressed jump
@@ -661,15 +669,28 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = velocity.y < 0 ? velocity.y : velocity.y / 4; //unchanged if velocity.y is negative, and divided by 4 if velocity.y is positive
         }
-        else if (keyPressed && PlayerState == PlayerStates.OnWall)
+        else if (keyPressed && (PlayerState == PlayerStates.OnWall || CheckForWallTouch())) //if i'm hitting space and i'm touching a wall
         {
-            OnWallJumpInput();
+            WallJump();
         }
+
+        jumpKeyDown = keyPressed;
     }
 
     public void DirectionalInput(InputAction.CallbackContext context)
     {
         directionalInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnWallClimb(InputAction.CallbackContext context)
+    {
+        float value = context.ReadValue<float>();
+        bool keyPressed = value == 1;
+
+        if (CheckForWallTouch() && keyPressed)
+        {
+            WallClimb();
+        }
     }
     #endregion
 
@@ -685,30 +706,15 @@ public class PlayerMovement : MonoBehaviour
 
     #region On Wall
 
-    private void OnWallJumpInput()
-    {
-        //if (playerDirectionalInput.y > 0)
-        //{
-        //    StartCoroutine(WallClimb());
-        //}
-        //else
-        //{
-        //    WallJump();
-        //}
-
-        WallJump();
-    }
-
     public void EnterWall()
     {
         PlayerState = PlayerStates.OnWall;
-
         TweenWallSlideSpeed();
     }
 
     private void LeaveWall(bool wallJump)
     {
-        velocity.y = additionalVelocity.y;
+        //velocity.y = additionalVelocity.y;
         if (wallJump)
         {
             StartCoroutine(SetBanMoveTimer(!onRightWall, wallJumpInputBanTime));
@@ -746,10 +752,6 @@ public class PlayerMovement : MonoBehaviour
     private void WallJump()
     {
         LeaveWall(true);
-        //StopAcceleration();
-        //StartAcceleration(playerMoveInput.x);
-        //additionalVelocity = wallJumpVelocity;
-        //additionalVelocity.x = onRightWall ? -additionalVelocity.x : additionalVelocity.x;
         Vector2 velocity = playerDirection == PlayerDirection.Right ? new Vector2(-wallJumpVelocity.x, wallJumpVelocity.y) : wallJumpVelocity;
         AddForce(velocity, false);
     }
@@ -785,6 +787,12 @@ public class PlayerMovement : MonoBehaviour
                 });
         }
 
+    }
+
+    private void WallClimb()
+    {
+        PlayerState = PlayerStates.InAir;
+        velocity.y = wallClimbVelocity;
     }
 
     #endregion
