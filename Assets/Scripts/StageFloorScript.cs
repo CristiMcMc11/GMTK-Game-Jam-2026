@@ -4,7 +4,6 @@ using UnityEngine;
 public class StageFloorScript : MonoBehaviour
 {
     private GameObject player;
-    private GameManager gameManager;
 
     private BoxCollider2D boxCollider;
     private GameObject child;
@@ -15,7 +14,6 @@ public class StageFloorScript : MonoBehaviour
     private void Awake()
     {
         player = GameObject.Find("Player");
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         boxCollider = GetComponent<BoxCollider2D>();
         child = transform.Find("Collider").gameObject;
 
@@ -35,8 +33,7 @@ public class StageFloorScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameManager.StartStage();
-            print("starting stage");
+            GameManager.instance.StartStage();
         }
     }
 
@@ -52,7 +49,7 @@ public class StageFloorScript : MonoBehaviour
     {
         isSolid = true;
         player.GetComponent<PlayerMovement>().AddForce(new Vector2(0, 10), true);
-        gameManager.EndStage();
+        GameManager.instance.EndStage();
 
         yield return new WaitForSeconds(0.2f);
 

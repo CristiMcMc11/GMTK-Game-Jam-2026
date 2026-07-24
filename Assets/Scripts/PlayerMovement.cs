@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -660,9 +661,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (keyPressed && (PlayerState == PlayerStates.Grounded || coyoteTime)) //holding/pressed jump
         {
-            PlayerState = PlayerStates.InAir;
-            velocity.y += value * jumpForce;
-            canUseCoyoteTime = false;
+            Jump();
             //StartCoroutine(SetCannotGoOnWallTimer(banWallAfterJumpTimeSec));
         }
         else if (!keyPressed && PlayerState == PlayerStates.InAir) //let go of jump
@@ -695,6 +694,13 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Air
+
+    public void Jump()
+    {
+        PlayerState = PlayerStates.InAir;
+        velocity.y += jumpForce;
+        canUseCoyoteTime = false;
+    }
 
     public void ApplyGravity()
     {
@@ -771,7 +777,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float minSpeed = Mathf.Max(-velocity.y / 2.5f, minSlideSpeed);
-        print(minSpeed);
         if (minSpeed > maxSlideSpeed)
         {
             wallVelocity = -minSpeed;
