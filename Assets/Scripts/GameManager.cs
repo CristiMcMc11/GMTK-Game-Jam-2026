@@ -6,11 +6,14 @@ using static PlayerMovement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     public GameObject[] zones;
     public GameObject stageFloor;
 
     public Transform stageParent1;
     public Transform stageParent2;
+    public Transform correctParent => stage % 2 == 0 ? stageParent1 : stageParent2;
 
     public static event Action OnTimersStart;
     private bool _timersRunning;
@@ -55,10 +58,21 @@ public class GameManager : MonoBehaviour
 
     private bool spawnedLayout = false;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     private void GenerateLayout()
     {
         List<GameObject> platforms = new List<GameObject>();
-        Transform correctParent = stage % 2 == 0 ? stageParent1 : stageParent2;
 
         //spawning
         for (int i = 0; i < zonesToSpawn; i++)
@@ -133,13 +147,22 @@ public class GameManager : MonoBehaviour
     public void EndStage()
     {
         TimersRunning = false;
+        stage++;
 
         //scaling
         zonesToSpawn += extraZonesPerStage;
-        if (stage-1 % stagesForTimerReduction == 0)
+        if (stage-1 % stagesForTimerReduction == 0 || stagesForTimerReduction == 1)
         {
             minTimer = Mathf.Max(minTimer - minTimerReduction, smallestMinTimer);
             timerInterval = Mathf.Max(timerInterval - intervalReduction, smallestInterval);
+        }
+
+        if (stage >= 3)
+        {
+            foreach (Transform child in correctParent)
+            {
+                Destroy(child.gameObject);
+            }
         }
 
         GenerateLayout();
