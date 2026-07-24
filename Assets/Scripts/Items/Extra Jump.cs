@@ -19,7 +19,6 @@ public class ExtraJump : Item
     {
         ItemManager.OnJumpPressed += UseItem;
         pmScript = GameObject.Find("Player").GetComponent<PlayerMovement>();
-        GameManager.NextStage += OnStageIncrease;
     }
 
     protected override void UseItem()
