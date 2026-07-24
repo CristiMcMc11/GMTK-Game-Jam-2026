@@ -671,7 +671,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (keyPressed && (PlayerState == PlayerStates.OnWall || CheckForWallTouch())) //if i'm hitting space and i'm touching a wall
         {
-            WallJump();
+            // WallJump(); nuh uh
+            bool wallOnRight = PlayerState == PlayerStates.OnWall ? onRightWall : (bool)CheckForWallTouch(false);
+            bool pressingAway = (wallOnRight && directionalInput.x < 0) || (!wallOnRight && directionalInput.x > 0);
+
+            if(pressingAway)
+            {
+                WallJump();
+            }
+            else
+            {
+                WallClimb();
+            }
         }
 
         jumpKeyDown = keyPressed;
@@ -682,16 +693,16 @@ public class PlayerMovement : MonoBehaviour
         directionalInput = context.ReadValue<Vector2>();
     }
 
-    public void OnWallClimb(InputAction.CallbackContext context)
-    {
-        float value = context.ReadValue<float>();
-        bool keyPressed = value == 1;
+    // public void OnWallClimb(InputAction.CallbackContext context)
+    // {
+    //     float value = context.ReadValue<float>();
+    //     bool keyPressed = value == 1;
 
-        if (CheckForWallTouch() && keyPressed)
-        {
-            WallClimb();
-        }
-    }
+    //     if (CheckForWallTouch() && keyPressed)
+    //     {
+    //         WallClimb();
+    //     }
+    // } ts second bind is not sugoi
     #endregion
 
     #region Air
