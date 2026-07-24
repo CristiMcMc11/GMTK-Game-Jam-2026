@@ -7,6 +7,7 @@ public class Recount : Item
 
     Recount()
     {
+        passive = false;
         cooldown = 15;
         isOnCooldown = false;
 
@@ -21,7 +22,7 @@ public class Recount : Item
 
     protected override void UseItem()
     {
-        if (isOnCooldown) return;
+        if (isOnCooldown || !isEnabled) return;
 
         foreach (Transform zoneParent in GameManager.instance.correctParent)
         {
@@ -29,7 +30,7 @@ public class Recount : Item
 
             foreach(Transform platform in zoneParent)
             {
-                if (!platform.gameObject.activeSelf)
+                if (!platform.gameObject.activeSelf && platform.gameObject.CompareTag("Platform"))
                 {
                     platform.gameObject.SetActive(true);
 

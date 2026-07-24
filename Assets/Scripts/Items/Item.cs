@@ -9,7 +9,7 @@ public abstract class Item : MonoBehaviour
     protected float maxStageTimer = 5;
     protected float currStageTimer = 0;
 
-    public bool passive { get; private set; } = true;
+    public bool passive { get; protected set; } = true;
     public bool isEnabled = false;
 
     protected abstract void UseItem();

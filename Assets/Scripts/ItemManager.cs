@@ -8,8 +8,8 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager instance;
 
-    [SerializeField] private Item[] allItemTypes;
-    [SerializeField] private List<Item> currentItems = new List<Item>();
+    public Item[] allItemTypes;
+    public List<Item> currentItems { get; private set; } = new List<Item>();
     [SerializeField] private List<Item> currentActiveItems = new List<Item>();
 
     //Input Events

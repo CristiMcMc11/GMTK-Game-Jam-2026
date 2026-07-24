@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using static PlayerMovement;
 
@@ -33,18 +34,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float zoneHeight = 6;
     [SerializeField] private float stagePlatformOffsetAdjustment = -2;
     [SerializeField] private float zonesToSpawn;
+    [SerializeField] private float totalYOffset = 0;
 
+    [Header("Timer")]
     [SerializeField] private float minTimer = 3;
     [SerializeField] private float timerInterval = 1.5f;
 
-    [SerializeField] private float totalYOffset = 0;
-
-    [Header("Deletion")]
+    [Header("Randomness")]
     //[SerializeField] private float skewPercentage = 70;
     [SerializeField] private float percentForRangeIncrease = 10;
     [SerializeField] private float rangeIncreaseNumber = 1;
+    [SerializeField] private float itemObtainerPercentChancePerZone = 5;
 
-    [Header("Stage")]
+
+    [Header("Stage Scaling")]
     [SerializeField] private int stage = 1;
 
     [SerializeField] private int extraZonesPerStage = 2;
@@ -73,6 +76,9 @@ public class GameManager : MonoBehaviour
     private void GenerateLayout()
     {
         List<GameObject> platforms = new List<GameObject>();
+        List<GameObject> itemObtainers = new List<GameObject>();
+
+        float itemObtainersToSpawn = 0;
 
         //spawning
         for (int i = 0; i < zonesToSpawn; i++)
@@ -86,6 +92,7 @@ public class GameManager : MonoBehaviour
             //add the zone's platform to the list
             List<Transform> zoneChildren = new List<Transform>();
             
+            
             for (int j = 0; j < zoneParent.transform.childCount; j++)
             {
                 zoneChildren.Add(zoneParent.transform.GetChild(j));
@@ -93,10 +100,23 @@ public class GameManager : MonoBehaviour
 
             for (int j = 0; j < zoneChildren.Count; j++) 
             {
-                platforms.Add(zoneChildren[j].gameObject);
+                if (zoneChildren[j].CompareTag("Platform")) 
+                {
+                    platforms.Add(zoneChildren[j].gameObject);
+                }
+                else if (zoneChildren[j].CompareTag("Item Obtainer"))
+                {
+                    itemObtainers.Add(zoneChildren[j].gameObject);
+                }
+
+                zoneChildren[j].gameObject.SetActive(false);
             }
+
+            //roll the item obtainer dice
+            if (UnityEngine.Random.Range(0, 100) <= itemObtainerPercentChancePerZone) itemObtainersToSpawn++;
         }
 
+        //spawn stage floor
         Instantiate(stageFloor, new Vector2(0, totalYOffset + stagePlatformOffsetAdjustment), Quaternion.identity, correctParent);
         totalYOffset += 6 + zoneSpaceY + stagePlatformOffsetAdjustment;
 
@@ -114,6 +134,29 @@ public class GameManager : MonoBehaviour
             //enable platform and delete from list
             platform.SetActive(true);
             platforms.RemoveAt(randomIndex);
+        }
+
+        if (itemObtainersToSpawn == 0) return;
+
+        //spawn item obtainers
+        List<Item> allowedItems = new List<Item>();
+        foreach (Item item in ItemManager.instance.allItemTypes)
+        {
+            if (ItemManager.instance.currentItems.Contains(item)) continue;
+            allowedItems.Add(item);
+        }
+
+        if (allowedItems.Count == 0) return;
+
+        for (int i = 0; i < Mathf.Min(itemObtainersToSpawn, allowedItems.Count); i++)
+        {
+            int listIndex = UnityEngine.Random.Range(0, itemObtainers.Count);
+            int itemIndex = UnityEngine.Random.Range(0, allowedItems.Count);
+
+            //give random item and check 
+            itemObtainers[listIndex].GetComponent<ItemObtainer>().itemToGive = allowedItems[itemIndex];
+            itemObtainers[listIndex].SetActive(true);
+            allowedItems.RemoveAt(itemIndex);
         }
     }
 
