@@ -479,6 +479,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e77bb8873e99a45919e36ceb0a076a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExtraJump
+  cooldown: 3
+  isOnCooldown: 0
+  maxStageTimer: 5
+  currStageTimer: 0
   isEnabled: 0
 --- !u!4 &517730630
 Transform:
@@ -1780,7 +1784,7 @@ MonoBehaviour:
   timerInterval: 1.2
   percentForRangeIncrease: 10
   rangeIncreaseNumber: 1
-  itemObtainerPercentChancePerZone: 50
+  itemObtainerPercentChancePerZone: 4
   stage: 1
   extraZonesPerStage: 2
   stagesForTimerReduction: 1
@@ -2459,6 +2463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b812b3a0c00a9438b118cbabd8a76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Recount
+  cooldown: 15
+  isOnCooldown: 0
+  maxStageTimer: 5
+  currStageTimer: 0
   isEnabled: 0
   platformRespawnTimer: 3
 --- !u!1 &2080573648

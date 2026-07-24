@@ -33,6 +33,7 @@ public class ItemManager : MonoBehaviour
         if (!item.passive) currentActiveItems.Add(item);
         currentItems.Add(item);
         item.isEnabled = true;
+        item.EnableItem();
     }
 
     public void RemoveItem(Item item)

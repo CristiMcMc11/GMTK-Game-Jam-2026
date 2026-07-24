@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Stage Scaling")]
     [SerializeField] private int stage = 1;
+    public static event Action NextStage;
 
     [SerializeField] private int extraZonesPerStage = 2;
 
@@ -191,6 +192,7 @@ public class GameManager : MonoBehaviour
     {
         TimersRunning = false;
         stage++;
+        NextStage?.Invoke();
 
         //scaling
         zonesToSpawn += extraZonesPerStage;
