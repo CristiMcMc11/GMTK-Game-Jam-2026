@@ -15,6 +15,7 @@ public class ItemManager : MonoBehaviour
     //Input Events
     public static event Action OnJumpPressed;
     public static event Action OnABK1Pressed;
+    public static event Action OnABK2Pressed;
 
     private void Awake()
     {
@@ -48,10 +49,18 @@ public class ItemManager : MonoBehaviour
     public void OnABK1Input(InputAction.CallbackContext context)
     {
         bool val = context.ReadValueAsButton();
-        print(val);
         if (val)
         {
             OnABK1Pressed?.Invoke();
+        }
+    }
+
+    public void OnABK2Input(InputAction.CallbackContext context)
+    {
+        bool val = context.ReadValueAsButton();
+        if (val)
+        {
+            OnABK2Pressed?.Invoke();
         }
     }
 

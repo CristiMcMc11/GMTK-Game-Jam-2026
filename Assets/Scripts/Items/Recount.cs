@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Recount : Item
 {
+    [Header("Recount Settings")]
     [SerializeField] private float platformRespawnTimer;
 
     Recount()
@@ -11,7 +12,7 @@ public class Recount : Item
         cooldown = 15;
         isOnCooldown = false;
 
-        maxStageTimer = 5;
+        maxStageTimer = 10;
         currStageTimer = 0;
     }
 

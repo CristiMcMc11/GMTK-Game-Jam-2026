@@ -20,6 +20,20 @@ public static class HelperMethods
     /// <summary>
     /// Sends a raycast at the desired position and direction.
     /// </summary>
+    /// <param name="offset"> The offset from the player's position that the starting position of the raycast should be at</param>
+    /// <param name="direction"></param>
+    /// <param name="distance"></param>
+    /// <param name="layerMask"></param>
+    /// <returns> All hits that the RaycastHit2D hits. </returns>
+    public static RaycastHit2D[] RaycastAll(this Rigidbody2D rb, Vector2 offset, Vector2 direction, float distance, int layerMask)
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(rb.position + offset, direction, distance, layerMask);
+        return hits;
+    }
+
+    /// <summary>
+    /// Sends a raycast at the desired position and direction.
+    /// </summary>
     /// <param name="rb"></param>
     /// <param name="point"> The ending point of the raycast </param>
     /// <param name="layerMask"></param>

@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
         OnWall,
         WallClimb,
         Vault,
+        NoMovement
     }
 
     public enum PlayerDirection
@@ -247,10 +248,14 @@ public class PlayerMovement : MonoBehaviour
                 rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
                 break;
 
-                //case PlayerStates.WallClimbing:
-                //    velocity.y = climbHeight / climbTime;
-                //    rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
-                //    break;
+            //case PlayerStates.WallClimbing:
+            //    velocity.y = climbHeight / climbTime;
+            //    rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+            //    break;
+
+            case PlayerStates.NoMovement:
+                velocity = Vector2.zero;
+                break;
         }
     }
 

@@ -11,7 +11,7 @@ public class ExtraJump : Item
         cooldown = 3;
         isOnCooldown = false;
 
-        maxStageTimer = 5;
+        maxStageTimer = 10;
         currStageTimer = 0;
     }
 

@@ -277,6 +277,7 @@ Transform:
   m_Children:
   - {fileID: 517730630}
   - {fileID: 1842666886}
+  - {fileID: 1468630858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &502937366
@@ -777,7 +778,19 @@ MonoBehaviour:
     m_ActionId: 8a11098e-3eb8-4e78-bafd-a9ac4d9c884c
     m_ActionName: 'Player/Active Item 1[/Mouse/leftButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 590719069}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: OnABK2Input
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a315274b-9528-4104-b948-5090215bd9ca
     m_ActionName: 'Player/Active Item 2[/Mouse/rightButton]'
   - m_PersistentCalls:
@@ -808,6 +821,7 @@ MonoBehaviour:
   allItemTypes:
   - {fileID: 517730629}
   - {fileID: 1842666887}
+  - {fileID: 1468630859}
   currentActiveItems: []
 --- !u!4 &590719070
 Transform:
@@ -1961,6 +1975,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1468630857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1468630858}
+  - component: {fileID: 1468630859}
+  m_Layer: 0
+  m_Name: Ceiling Warp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1468630858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468630857}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.2237601, y: 13.6924095, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 316639325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468630859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468630857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276363412ab19f148a76bcec3209fb61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CeilingWarp
+  cooldown: 10
+  isOnCooldown: 0
+  maxStageTimer: 10
+  currStageTimer: 0
+  isEnabled: 0
+  maxWarpDistance: 10
+  travelSpeed: 15
+  pointYOffset: 0.5
 --- !u!1 &1688819173
 GameObject:
   m_ObjectHideFlags: 0
