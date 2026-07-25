@@ -67,7 +67,7 @@ public class DecayingPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (nextTouchRevive)
+        if (nextTouchRevive && !playerInBrokenPlatform)
         {
             PlayerTouchedForRevive?.Invoke();
             Respawn();
