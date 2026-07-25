@@ -15,6 +15,11 @@ public class ItemManager : MonoBehaviour
     //Input Events
     public static event Action OnJumpPressed;
     public static event Action OnABK1Pressed;
+    public static event Action OnABK2Pressed;
+    public static event Action OnABK3Pressed;
+
+    public static event Action OnSprintStart;
+    public static event Action OnSprintStop;
 
     private void Awake()
     {
@@ -48,10 +53,26 @@ public class ItemManager : MonoBehaviour
     public void OnABK1Input(InputAction.CallbackContext context)
     {
         bool val = context.ReadValueAsButton();
-        print(val);
         if (val)
         {
             OnABK1Pressed?.Invoke();
+        }
+    }
+
+    public void OnABK2Input(InputAction.CallbackContext context)
+    {
+        bool val = context.ReadValueAsButton();
+        if (val)
+        {
+            OnABK2Pressed?.Invoke();
+        }
+    }
+
+    public void OnABK3Input(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnABK3Pressed?.Invoke();
         }
     }
 
@@ -60,6 +81,18 @@ public class ItemManager : MonoBehaviour
         if (context.started)
         {
             OnJumpPressed?.Invoke();
+        }
+    }
+
+    public void OnSprintInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnSprintStart?.Invoke();
+        }
+        else if (context.canceled)
+        {
+            OnSprintStop?.Invoke();
         }
     }
 

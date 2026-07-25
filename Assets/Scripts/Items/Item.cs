@@ -3,13 +3,15 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
+    [Header("Item Settings")]
     [SerializeField] protected float cooldown = 10;
     [SerializeField]  protected bool isOnCooldown = false;
 
     [SerializeField] protected float maxStageTimer = 5;
-    [SerializeField] protected float currStageTimer = 0;
-
     public bool passive { get; protected set; } = true;
+
+    [Header("Item Runtime")]
+    [SerializeField] protected float currStageTimer = 0;
     public bool isEnabled = false;
 
     protected void Awake()

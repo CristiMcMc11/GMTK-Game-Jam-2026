@@ -276,7 +276,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 517730630}
+  - {fileID: 1923670572}
   - {fileID: 1842666886}
+  - {fileID: 1468630858}
+  - {fileID: 1130414085}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &502937366
@@ -481,7 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExtraJump
   cooldown: 3
   isOnCooldown: 0
-  maxStageTimer: 5
+  maxStageTimer: 8
   currStageTimer: 0
   isEnabled: 0
 --- !u!4 &517730630
@@ -777,11 +780,35 @@ MonoBehaviour:
     m_ActionId: 8a11098e-3eb8-4e78-bafd-a9ac4d9c884c
     m_ActionName: 'Player/Active Item 1[/Mouse/leftButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 590719069}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: OnABK2Input
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a315274b-9528-4104-b948-5090215bd9ca
     m_ActionName: 'Player/Active Item 2[/Mouse/rightButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 590719069}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: OnABK3Input
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6e544ada-bc59-4d57-bc6f-4791fa43f644
     m_ActionName: 'Player/Active Item 3[/Keyboard/e]'
   - m_PersistentCalls:
@@ -808,6 +835,9 @@ MonoBehaviour:
   allItemTypes:
   - {fileID: 517730629}
   - {fileID: 1842666887}
+  - {fileID: 1468630859}
+  - {fileID: 1130414086}
+  - {fileID: 1923670573}
   currentActiveItems: []
 --- !u!4 &590719070
 Transform:
@@ -1725,6 +1755,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 855418325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1130414084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1130414085}
+  - component: {fileID: 1130414086}
+  m_Layer: 0
+  m_Name: Revive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1130414085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130414084}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.2237601, y: 13.6924095, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 316639325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1130414086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130414084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8a9fc5460e2d84984b3c56611649ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Revive
+  cooldown: 7
+  isOnCooldown: 0
+  maxStageTimer: 8
+  currStageTimer: 0
+  isEnabled: 0
+  reviveActive: 0
 --- !u!1 &1131209945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,6 +2041,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1468630857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1468630858}
+  - component: {fileID: 1468630859}
+  m_Layer: 0
+  m_Name: Ceiling Warp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1468630858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468630857}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.2237601, y: 13.6924095, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 316639325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468630859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468630857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276363412ab19f148a76bcec3209fb61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CeilingWarp
+  cooldown: 10
+  isOnCooldown: 0
+  maxStageTimer: 8
+  currStageTimer: 0
+  isEnabled: 0
+  maxWarpDistance: 10
+  travelSpeed: 15
+  pointYOffset: 0.5
 --- !u!1 &1688819173
 GameObject:
   m_ObjectHideFlags: 0
@@ -2465,10 +2597,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Recount
   cooldown: 15
   isOnCooldown: 0
-  maxStageTimer: 5
+  maxStageTimer: 8
   currStageTimer: 0
   isEnabled: 0
   platformRespawnTimer: 3
+--- !u!1 &1923670571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1923670572}
+  - component: {fileID: 1923670573}
+  m_Layer: 0
+  m_Name: Extra Speed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1923670572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923670571}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.03191006, y: 1.27075, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 316639325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1923670573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923670571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6487cbcc5db5a746bb515b4ae4a0820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExtraSpeed
+  cooldown: 0
+  isOnCooldown: 0
+  maxStageTimer: 8
+  currStageTimer: 0
+  isEnabled: 0
+  defaultSpeed: 0
+  boostedSpeed: 10
 --- !u!1 &2080573648
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Recount : Item
 {
+    [Header("Recount Settings")]
     [SerializeField] private float platformRespawnTimer;
 
     Recount()
@@ -11,7 +12,7 @@ public class Recount : Item
         cooldown = 15;
         isOnCooldown = false;
 
-        maxStageTimer = 5;
+        maxStageTimer = 10;
         currStageTimer = 0;
     }
 
@@ -30,13 +31,12 @@ public class Recount : Item
 
             foreach(Transform platform in zoneParent)
             {
-                if (!platform.gameObject.activeSelf && platform.gameObject.CompareTag("Platform"))
+                if (platform.gameObject.CompareTag("Platform"))
                 {
-                    platform.gameObject.SetActive(true);
-
                     DecayingPlatform platScript = platform.GetComponent<DecayingPlatform>();
-                    platScript.timeUntilDecay = platformRespawnTimer;
-                    platScript.StartTimer();
+                    if (platScript.state != DecayingPlatform.PlatformState.Broken) continue;
+
+                    platScript.Respawn(platformRespawnTimer);
                 }
             }
         }
