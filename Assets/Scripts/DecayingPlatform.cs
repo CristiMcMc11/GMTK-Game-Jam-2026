@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 public class DecayingPlatform : MonoBehaviour
@@ -14,6 +15,8 @@ public class DecayingPlatform : MonoBehaviour
     }
     public PlatformState state { get; private set; }
 
+    public event UnityAction PlayerTouchedForRevive; 
+
     private TilemapCollider2D tilemapCollider;
     private TilemapRenderer tilemapRenderer;
 
@@ -24,6 +27,8 @@ public class DecayingPlatform : MonoBehaviour
 
     [SerializeField] float warning1Time = 5;
     [SerializeField] float warning2Time = 1;
+
+    [SerializeField] bool nextTouchRevive = false;
 
     private void Awake()
     {
@@ -60,6 +65,15 @@ public class DecayingPlatform : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (nextTouchRevive)
+        {
+            PlayerTouchedForRevive?.Invoke();
+            Respawn();
+        }
+    }
+
 
     public void StartTimer()
     {
@@ -82,6 +96,24 @@ public class DecayingPlatform : MonoBehaviour
         else
         {
             state = PlatformState.Solid;
+        }
+    }
+
+    public void NextTouchRevive(bool turnOn)
+    {
+        if (turnOn)
+        {
+            nextTouchRevive = true;
+            tilemapCollider.isTrigger = false;
+            tilemapRenderer.enabled = true;
+            gameObject.layer = LayerMask.NameToLayer("Terrain");
+        }
+        else
+        {
+            nextTouchRevive = false;
+            tilemapCollider.isTrigger = true;
+            tilemapRenderer.enabled = false;
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
     }
 
