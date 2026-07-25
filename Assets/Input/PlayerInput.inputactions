@@ -79,7 +79,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Wall Climb",
+                    "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
                     "expectedControlType": "",
@@ -385,7 +385,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Wall Climb",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -396,7 +396,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Wall Climb",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -407,7 +407,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Wall Climb",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

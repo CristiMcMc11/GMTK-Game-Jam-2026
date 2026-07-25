@@ -18,6 +18,9 @@ public class ItemManager : MonoBehaviour
     public static event Action OnABK2Pressed;
     public static event Action OnABK3Pressed;
 
+    public static event Action OnSprintStart;
+    public static event Action OnSprintStop;
+
     private void Awake()
     {
         if (instance == null)
@@ -78,6 +81,18 @@ public class ItemManager : MonoBehaviour
         if (context.started)
         {
             OnJumpPressed?.Invoke();
+        }
+    }
+
+    public void OnSprintInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnSprintStart?.Invoke();
+        }
+        else if (context.canceled)
+        {
+            OnSprintStop?.Invoke();
         }
     }
 
