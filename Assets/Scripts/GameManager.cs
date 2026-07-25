@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("Generation")]
-    [SerializeField] private float zoneSpaceY = 1;
+    [SerializeField] private float spaceBetweenZones = 1;
     [SerializeField] private float zoneHeight = 6;
     [SerializeField] private float stagePlatformOffsetAdjustment = -2;
     [SerializeField] private float zonesToSpawn;
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             int zoneIndex = UnityEngine.Random.Range(0, zones.Length);
             Vector2 spawnPosition = new Vector2(0, totalYOffset);
             GameObject zoneParent = Instantiate(zones[zoneIndex], spawnPosition, Quaternion.identity, correctParent);
-            totalYOffset += zoneHeight + zoneSpaceY;
+            totalYOffset += zoneHeight + spaceBetweenZones;
 
             //add the zone's platform to the list
             List<Transform> zoneChildren = new List<Transform>();
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
 
         //spawn stage floor
         Instantiate(stageFloor, new Vector2(0, totalYOffset + stagePlatformOffsetAdjustment), Quaternion.identity, correctParent);
-        totalYOffset += 6 + zoneSpaceY + stagePlatformOffsetAdjustment;
+        totalYOffset += 6 + spaceBetweenZones + stagePlatformOffsetAdjustment;
 
         int numPlatforms = platforms.Count;
         int numForRangeIncrease = Mathf.FloorToInt(numPlatforms * (percentForRangeIncrease / 100));
