@@ -16,13 +16,13 @@ public class PlayerVisuals : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //SetAnimatorParameters();
+        SetAnimatorParameters();
     }
 
     private void SetAnimatorParameters()
     {
         animator.SetInteger("PlayerState", ((int)pmScript.PlayerState));
         animator.SetBool("Moving", pmScript.GetVelocity().x != 0);
-        animator.SetBool("Falling", pmScript.GetVelocity().y < 0);
+        animator.SetFloat("VelocityY", pmScript.GetVelocity().y);
     }
 }
