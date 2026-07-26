@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
     {
         List<GameObject> platforms = new List<GameObject>();
         List<GameObject> itemObtainers = new List<GameObject>();
-        List<GameObject> walls = new List<GameObject>();
+        List<GameObject> others = new List<GameObject>();
 
         float itemObtainersToSpawn = 0;
 
@@ -110,9 +110,9 @@ public class GameManager : MonoBehaviour
                 {
                     itemObtainers.Add(zoneChildren[j].gameObject);
                 }
-                else if (zoneChildren[j].CompareTag("Wall"))
+                else if (zoneChildren[j].CompareTag("Wall") || zoneChildren[j].CompareTag("BG"))
                 {
-                    walls.Add(zoneChildren[j].gameObject);
+                    others.Add(zoneChildren[j].gameObject);
                 }
 
                 zoneChildren[j].gameObject.SetActive(false);
@@ -142,9 +142,9 @@ public class GameManager : MonoBehaviour
             platforms.RemoveAt(randomIndex);
         }
 
-        foreach (GameObject wall in walls)
+        foreach (GameObject other in others)
         {
-            wall.SetActive(true);
+            other.SetActive(true);
         }
 
         if (itemObtainersToSpawn == 0) return;
