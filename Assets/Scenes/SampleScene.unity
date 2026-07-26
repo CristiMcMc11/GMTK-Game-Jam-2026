@@ -175,7 +175,7 @@ Animator:
   m_GameObject: {fileID: 267538467}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2e7f63eb67acc7f458f81f806760fa07, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -236,7 +236,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 1556697228627696743, guid: 88d6e9281a91f0640b98a1f610391a30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -634,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.41123, y: -3.8015702, z: -10}
+  m_LocalPosition: {x: -1.55123, y: -3.2115705, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1146,8 +1146,8 @@ Transform:
   m_GameObject: {fileID: 1010001421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.62, z: 0}
-  m_LocalScale: {x: 0.7, y: 1, z: 1}
+  m_LocalPosition: {x: -0.14, y: -4.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 267538468}
@@ -1174,8 +1174,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundBoxCastLength: 0.7
-  groundBoxCastYOffset: 0.5
-  groundRaycastDistance: 0.5
+  groundBoxCastYOffset: 0.825
+  groundRaycastDistance: 0.825
   wallBoxCastOffset: 0.35
   wallBoxCastSize: 1
   groundSnapHorizontal: 0
@@ -1261,7 +1261,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 1.65}
   m_EdgeRadius: 0
 --- !u!50 &1010001425
 Rigidbody2D:
@@ -1852,16 +1852,20 @@ MonoBehaviour:
   zones:
   - {fileID: 8679668267526386155, guid: e3b302a2aefd0b84988be86de5518948, type: 3}
   - {fileID: 1512243809785874062, guid: c522f0a514fac01439493d2220a3eb9c, type: 3}
+  - {fileID: 1512243809785874062, guid: 116aa3a6a83593146a949ab8dd570fab, type: 3}
+  - {fileID: 1512243809785874062, guid: ea687d473ae4d214ab860e96806235d5, type: 3}
+  - {fileID: 1512243809785874062, guid: 8f273246a234916448e09fe9d5808a77, type: 3}
+  - {fileID: 1512243809785874062, guid: cb298c261bbad764ea01ca35e8e1522b, type: 3}
   stageFloor: {fileID: 5239161711458048611, guid: 6e9c65df60b36fa4d8b74caed1ab3ef1, type: 3}
   stageParent1: {fileID: 1696658894}
   stageParent2: {fileID: 1166465055}
-  zoneSpaceY: 1
+  spaceBetweenZones: 1
   zoneHeight: 6
   stagePlatformOffsetAdjustment: -2
   zonesToSpawn: 5
   totalYOffset: 0
-  minTimer: 3
-  timerInterval: 1.2
+  minTimer: 4
+  timerInterval: 1.6
   percentForRangeIncrease: 10
   rangeIncreaseNumber: 1
   itemObtainerPercentChancePerZone: 4
@@ -2120,7 +2124,7 @@ Transform:
   m_GameObject: {fileID: 1688819173}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.41123, y: -3.8015702, z: -10}
+  m_LocalPosition: {x: -1.55123, y: -3.2115705, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
