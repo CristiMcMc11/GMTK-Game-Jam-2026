@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float zoneHeight = 6;
     [SerializeField] private float stagePlatformOffsetAdjustment = -2;
     [SerializeField] private float zonesToSpawn;
-    [SerializeField] private float totalYOffset = 0;
+    [SerializeField] public float totalYOffset = 0;
 
     [Header("Timer")]
     [SerializeField] private float minTimer = 3;
@@ -126,6 +126,10 @@ public class GameManager : MonoBehaviour
         Instantiate(stageFloor, new Vector2(0, totalYOffset + stagePlatformOffsetAdjustment), Quaternion.identity, correctParent);
         totalYOffset += 6 + spaceBetweenZones + stagePlatformOffsetAdjustment;
 
+        //Set death zone offset for the first stage only (preventative)
+        if (stage == 1) DeathZone.instance.endStageYPos = totalYOffset;
+        DeathZone.instance.newEndStageYPos = totalYOffset;
+
         int numPlatforms = platforms.Count;
         int numForRangeIncrease = Mathf.FloorToInt(numPlatforms * (percentForRangeIncrease / 100));
 
@@ -196,6 +200,7 @@ public class GameManager : MonoBehaviour
     public void StartStage()
     {
         TimersRunning = true;
+        //DeathZone.instance.endStageYPos = y
     }
 
     public void EndStage()
@@ -221,5 +226,15 @@ public class GameManager : MonoBehaviour
         }
 
         GenerateLayout();
+    }
+
+    public void Die()
+    {
+        GameObject player = GameObject.Find("Player");
+
+        player.GetComponent<PlayerMovement>().enabled = false;
+        player.transform.Find("Visuals").gameObject.SetActive(false);
+
+        //ui death screen
     }
 }
